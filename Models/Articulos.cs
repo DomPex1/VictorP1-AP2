@@ -17,12 +17,5 @@ namespace VictorP1_AP2.Models{
         public float ValorInventario{get; set;}
 
     }
-    public class ArticulosDetalle{
 
-        [Key]
-        public int Id{get; set;}
-        public int ArticuloId{get; set;}
-
-    }
-    
 }
