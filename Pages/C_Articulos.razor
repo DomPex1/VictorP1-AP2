@@ -1,0 +1,222 @@
+@page "/consultaProducto"
+@using VictorP1_AP2.Models
+@using VictorP1_AP2.BLL
+
+@inject Blazored.Toast.Services.IToastService toast
+
+<div class="card">
+
+        <div class="card-header">
+            <h3>Consulta de Articulos</h3>
+        </div>
+
+        <div class="card-body">
+            <div class="form-group">
+                <div class="form-row">
+                    <div class="input-group">
+                        <div class="col">
+                            <input type="text" class="form-control" placeholder="Criterio" @bind="criterio" />
+                        </div>
+
+                        <div class="col">
+                            <select class="form-control" @bind="filtro">
+                                <option value="0">Todos</option>
+                                <option value="1">Id</option>
+                                <option value="2">Descripci&oacuten</option>
+                                <option value="3">Existencia</option>
+                                <option value="4">Costo</option>
+                                <option value="5">Valor de Inventario</option>
+                            </select>
+                        </div>
+
+                        <div class="input-group-append">
+                            <button type="button" class="btn btn-primary" @onclick="Consultar">Consultar</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <table class="table">
+            <thead class="thead-light">
+                <tr>
+                    <th>Id</th>
+                    <th>Descripcion</th>
+                    <th>Existencia</th>
+                    <th>Costo</th>
+                    <th>Valor Inventario</th>
+                    <th>  </th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in lista)
+                {
+                    <tr>
+                        <td>@item.ArticuloId</td>
+                        <td>@item.Descripcion</td>
+                        <td>@item.Existencia</td>
+                        <td>@item.Costo</td>
+                        <td>@item.ValorInventario</td>
+                        <a href="/articulo/@item.ArticuloId">Ver</a>
+                    </tr>
+                }
+            </tbody>
+
+        </table>
+
+        <div class="card-footer">
+            <div class="form-group text-center" display:inline-block>
+                 <div class="form-row">
+                    <div class="row">
+                        <div class="input-group">
+                            <label>Total Inventario</label>
+                            <div class="input-group-append">
+                                <input type="text" class="form-control" @bind="total" readonly/>
+                            </div>
+                        </div>
+                    </div>
+                </div>    
+            </div>
+        </div>
+
+</div>
+
+@code {
+
+    public int filtro { get; set; }
+    public string criterio { get; set; }
+    public List<Articulos> lista = new List<Articulos>();
+    public float total { get; set; }
+
+    private void Consultar()
+    {
+        try
+        {
+            switch (filtro)
+            {
+                case 0:
+                    this.lista = ArticulosBLL.GetList(p => true);
+                    Sumar();
+                    break;
+                case 1:
+                    int ID = GetId();
+                    this.lista = ArticulosBLL.GetList(p => p.ArticuloId == ID);
+                    Sumar();
+                    break;
+                case 2:
+                    this.lista = ArticulosBLL.GetList(p => p.Descripcion == criterio);
+                    Sumar();
+                    break;
+                case 3:
+                    int existencia = GetExistencia();
+                    this.lista = ArticulosBLL.GetList(p => p.Existencia == existencia);
+                    Sumar();
+                    break;
+                case 4:
+                    float costo = GetCosto();
+                    this.lista = ArticulosBLL.GetList(p => p.Costo == costo);
+                    Sumar();
+                    break;
+                case 5:
+                    float valor = GetValorInventario();
+                    this.lista = ArticulosBLL.GetList(p => p.ValorInventario == valor);
+                    Sumar();
+                    break;
+            }
+        }
+        catch (Exception)
+        {
+
+            throw;
+        }
+    }
+
+    private int GetId()
+    {
+        int resultado = 0;
+
+        try
+        {
+            resultado = Convert.ToInt32(criterio);
+            return resultado;
+        }
+        catch (Exception)
+        {
+
+            toast.ShowError("El Id debe ser un numero");
+        }
+
+        return resultado;
+    }
+
+    private int GetExistencia()
+    {
+        int existencia = 0;
+
+        try
+        {
+            existencia = Convert.ToInt32(criterio);
+            return existencia;
+        }
+        catch (Exception)
+        {
+
+            toast.ShowError("La existencia debe ser un numero");
+        }
+
+        return existencia;
+    }
+
+    private float GetCosto()
+    {
+        float costo = 0;
+
+        try
+        {
+            costo =Convert.ToUInt32(criterio);
+            return costo;
+        }
+        catch (Exception)
+        {
+
+            toast.ShowError("El costo debe ser un numero");
+        }
+
+        return costo;
+    }
+
+    private float GetValorInventario()
+    {
+        float valor = 0;
+
+        try
+        {
+            valor = Convert.ToUInt32(criterio);
+            return valor;
+        }
+        catch (Exception)
+        {
+
+            toast.ShowError("El valor debe ser un numero");
+        }
+
+        return valor;
+    }
+
+    private void Sumar()
+    {
+        float aux = 0;
+        if (lista != null)
+        {
+            foreach (var item in lista)
+            {
+                aux += item.ValorInventario;
+            }
+
+            total = aux;
+        }
+
+    }
+
+}

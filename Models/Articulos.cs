@@ -16,6 +16,7 @@ namespace VictorP1_AP2.Models{
         [Required,Range(minimum:1,maximum:int.MaxValue,ErrorMessage = "El valor del inventario debe ser mayor que cero")]
         public float ValorInventario{get; set;}
 
+
     }
 
 }
