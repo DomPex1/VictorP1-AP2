@@ -3,7 +3,7 @@
 @using VictorP1_AP2.Models;
 @using VictorP1_AP2.BLL;
 
-@inject Blazored.Toast.Services.IToastService toast
+@inject IToastService toast
 
 <EditForm Model="articulo" OnValidSubmit="Guardar">
     <DataAnnotationsValidator/>
