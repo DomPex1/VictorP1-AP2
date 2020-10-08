@@ -1,5 +1,5 @@
 @page "/articulo"
-@page "/articulo/{ArticuloId: int}"
+@page "/articulo/{ArticuloId:int}"
 @using VictorP1_AP2.Models;
 @using VictorP1_AP2.BLL;
 
@@ -11,7 +11,7 @@
         <div class="card">
 
             <div class="card-header">
-                <h3>Registro de Articulos</h3>
+                <h3>Registro de Art&iacuteculos</h3>
             </div>
 
             <div class="card-body">
@@ -39,13 +39,13 @@
 
                     <div class="form-group">
                         <label>Existencia</label>
-                        <InputNumber @bind-Value="articulo.Existencia" class="form-control" />
+                        <InputNumber @bind-Value="articulo.Existencia" @onclick="GetTotalInventario" class="form-control" />
                         <ValidationMessage For="@(() => articulo.Existencia)" />
                     </div>
 
                     <div class="form-group">
                         <label>Costo</label>
-                        <InputNumber @bind-Value="articulo.Costo" class="form-control" />
+                        <InputNumber @bind-Value="articulo.Costo" @onclick="GetTotalInventario" class="form-control" />
                         <ValidationMessage For="@(() => articulo.Costo)" />
                     </div>
 

@@ -1,4 +1,4 @@
-@page "/consultaProducto"
+@page "/ConsultaProducto"
 @using VictorP1_AP2.Models
 @using VictorP1_AP2.BLL
 
@@ -7,7 +7,7 @@
 <div class="card">
 
         <div class="card-header">
-            <h3>Consulta de Articulos</h3>
+            <h3>Consulta de Art&iacuteculos</h3>
         </div>
 
         <div class="card-body">
@@ -42,7 +42,7 @@
             <thead class="thead-light">
                 <tr>
                     <th>Id</th>
-                    <th>Descripcion</th>
+                    <th>Descripci&oacuten</th>
                     <th>Existencia</th>
                     <th>Costo</th>
                     <th>Valor Inventario</th>
@@ -58,7 +58,6 @@
                         <td>@item.Existencia</td>
                         <td>@item.Costo</td>
                         <td>@item.ValorInventario</td>
-                        <a href="/articulo/@item.ArticuloId">Ver</a>
                     </tr>
                 }
             </tbody>
