@@ -11,6 +11,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using VictorP1_AP2.Data;
 using Blazored.Toast;
+using Blazored;
 
 namespace VictorP1_AP2
 {
